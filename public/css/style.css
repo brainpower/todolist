@@ -1,18 +1,24 @@
+body {
+	color: #111;
+	font-family: 'Liberation Sans', 'Segoe UI', 'Roboto', sans-serif;
+}
 .list .list-title {
 	font-size: 3em;
 	font-weight: bold;
-	padding: 5px;
+	margin: 5px 5px 0 0;
 	width: 90%;
 }
 .list .list-description {
 	width: 90%;
+	margin-left: 5px;
+	color: #666;
 }
 .list .list-entries {
 	margin-top: 20px;
 }
 .list .list-row {
 	margin: 5px;
-	padding-left: 5px;
+	padding-left: 10px;
 	padding-right: 5px;
 	/*padding: 5px;*/
 	font-size: 1.5em;
@@ -21,11 +27,17 @@
 	cursor: pointer;
 	/*display: table-row;*/
 	/*border-style: solid;
-	border-width: 3px;
-	/*border-radius: 5px;*/
+	border-width: 3px;*/
+	border-radius: 5px;
 }
 .list .list-row.only:first-of-type {
 	border-top: #272727 1px solid;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.list .list-row.only:last-of-type {
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 .list .list-row.only {
 	padding: 5px;
@@ -34,6 +46,7 @@
 	border-bottom: 1px solid;
 	border-left: 1px solid;
 	border-right: 1px solid;
+	border-radius: unset;
 }
 .list .list-col {
 	padding: 5px 0;
@@ -45,7 +58,7 @@
 .list .list-col.right {
 	float: right;
 	box-sizing:border-box;
-	margin-right: -5px;
+	/*margin-right: -5px;*/
 }
 .list .list-col .button {
 	margin-top: -10px;
@@ -65,27 +78,41 @@
 }
 .actions {
 	overflow: auto;
+	right: 20px;
+	top: 20px;
+	position:absolute;
 }
 .button {
 	margin: 8px 0;
 	padding: 8px;
 	cursor: pointer;
-	border: 2px solid #333;
+	border: 1px solid #333;
+	border-radius: 5px;
+	box-shadow: 1px 1px #666;
 	display: inline-block;
+	/*background-image: -moz-linear-gradient(#fff, #fefefe);*/
 }
 a.button,
 button.button {
 	text-decoration: inherit;
 	color: inherit;
-	background-color: unset;
+	/*background-color: unset;*/
 	font-size: inherit;
 	font-family: inherit;
+	margin-right: 1px;
 }
 .button:hover {
 	background-color: #eee;
 }
+.button-white {
+	background-color: #fff;
+}
 .button-green {
 	background-color: #0a0;
+}
+.list-entries .button {
+	width: 16px;
+	padding: 2px 8px;
 }
 .button-red,
 .list a.button-red {
@@ -126,15 +153,15 @@ button.button {
 }
 
 .list .list-entries .list-row.unstarted {
-	background-color: #777;
+	background-color: #aaa;
 	border-color: #272727;
 }
 .list .list-entries .list-row.unstarted:hover {
-	background-color: #888;
+	background-color: #bbb;
 	border-color: #383838;
 }
 .list .list-entries .list-row.unfinished {
-	background-color: #fa0;
+	background-color: #fb3;
 	/*border-color: #b30;*/
 	border-color: #272727;
 }
@@ -144,12 +171,12 @@ button.button {
 	border-color: #383838;
 }
 .list .list-entries .list-row.finished {
-	background-color: #080;
+	background-color: #0a0;
 	/*border-color: #030;*/
 	border-color: #272727;
 }
 .list .list-entries .list-row.finished:hover {
-	background-color: #090;
+	background-color: #0b0;
 	/*border-color: #040;*/
 	border-color: #383838;
 }

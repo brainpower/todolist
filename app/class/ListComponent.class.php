@@ -15,7 +15,9 @@ class ListComponent extends AbstractComponent {
 	public function show(){
 		print '<div class="list">'."\n";
 		if($this->title){
-			print '<div class="list-title">'. htmlspecialchars($this->title) . "</div>\n";
+			print '<h1 class="list-title">'. htmlspecialchars($this->title);
+			//print '<div class="list-subtitle">'. htmlspecialchars($this->subtitle) .'</div>';
+			print "</h1>\n";
 		}
 		if($this->description){
 			print '<div class="list-description">' . htmlspecialchars($this->description) . '</div>';

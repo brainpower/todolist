@@ -34,4 +34,17 @@ EOF;
 		print '<a class="list-new button" href="?action=new">New List</a>';
 		print '</div>';
 	}
+
+	public function scripts()
+	{
+		return array_merge(
+			parent::scripts(),
+			array(
+				'js/3rdparty/solid.min.js',
+				'js/3rdparty/fontawesome.min.js'
+			)
+		);
+	}
+
+
 };

@@ -23,7 +23,7 @@ $state   = $_GET["state"]  ?? null;
  * No action, no listID -> show index page
  */
 if($listID == null && !$action) {
-	$list_list = new ListsListComponent( $DB->list, "Current TODO Lists" );
+	$list_list = new ListsListComponent( $DB->list, "TODO Lists", "Listing your TODOs since 1846" );
 	$page->addComponent($list_list);
 }
 
@@ -66,11 +66,14 @@ elseif($action == "update" && $entryID !== null){
 			"state" => $state,
 			"updated_at" => time()
 		));
-		if ($updated > 0) {
+		if ($updated === 0 && intval($DBH->errorCode()) !== 0) {
+			$out["status"] = "error";
+			$out["reason"] = "error updating item database entry";
+		} else {
 			$listID = $DB->entry[$entryID]["list_id"];
 			$finishedCount = $DB->entry->where("list_id = ?", $listID)->and("state > 0")->count("*");
 			$unfinishedCount = $DB->entry->where("list_id = ?", $listID)->and("state = 0")->count("*");
-			$res = 0;
+			$res = -1;
 			if( $unfinishedCount > 0 ){
 				if( $finishedCount > 0 ){
 					$res = $DB->list[$listID]->update(array("status" => 1));
@@ -80,15 +83,12 @@ elseif($action == "update" && $entryID !== null){
 			} else {
 				$res = $DB->list[$listID]->update(array("status" => 2)) < 1;
 			}
-			if( $res > 0 )
-				$out["status"] = "success";
-			else {
+			if( $res === 0 && intval($DBH->errorCode()) !== 0) {
 				$out["status"] = "error";
-				$out["reason"] = "error updating database entry";
+				$out["reason"] = "error updating list database entry ({$DBH->errorCode()}: {$DBH->errorInfo()[2]} / {$finishedCount} / {$unfinishedCount} / {$listID})";
+			} else {
+				$out["status"] = "success";
 			}
-		} else {
-			$out["status"] = "error";
-			$out["reason"] = "error updating database entry";
 		}
 	}
 	//elseif(isset($_GET["subaction"])) {		}
