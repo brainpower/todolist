@@ -3,8 +3,8 @@
 require_once("app/class/ListComponent.class.php");
 
 class ListsListComponent extends ListComponent {
-	public function __construct($data, $title=null){
-		parent::__construct($data, $title);
+	public function __construct($data, $title=null, $subtitle=null){
+		parent::__construct($data, $title, $subtitle);
 	}
 
 	protected function showEntry($entry_data){
@@ -23,7 +23,7 @@ class ListsListComponent extends ListComponent {
 						<div class="list-col description">{$descr}</div>
 					</a>
 					<div class="list-col right">
-						<a class="button" href="?action=edit&list={$entry_data["id"]}">E</a><a class="button button-red" href="?action=delete&list={$entry_data["id"]}">D</a>
+						<a class="button button-white" href="?action=edit&list={$entry_data["id"]}">E</a><a class="button button-red" href="?action=delete&list={$entry_data["id"]}">D</a>
 					</div>
 				</div>
 EOF;
