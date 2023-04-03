@@ -64,7 +64,7 @@ elseif($action == "update" && $entryID !== null){
 	if($state !== null){
 		$updated = $DB->entry[$entryID]->update(array(
 			"state" => $state,
-			"updated_at" => time()
+			"updated_at" => (new DateTimeImmutable())->format('Y-m-d H:i:s')
 		));
 		if ($updated === 0 && intval($DBH->errorCode()) !== 0) {
 			$out["status"] = "error";

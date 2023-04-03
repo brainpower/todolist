@@ -1,4 +1,4 @@
--- Adminer 4.6.3 MySQL dump
+-- Adminer 4.8.1 MySQL 10.11.2-MariaDB-log dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
@@ -12,13 +12,13 @@ CREATE TABLE `entry` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `list_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `state` smallint(6) NOT NULL DEFAULT '0',
-  `created_at` int(11) NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `state` smallint(6) NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `list_id` (`list_id`),
   CONSTRAINT `entry_ibfk_1` FOREIGN KEY (`list_id`) REFERENCES `list` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 DROP TABLE IF EXISTS `list`;
@@ -26,11 +26,11 @@ CREATE TABLE `list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `description` text NOT NULL,
-  `status` smallint(6) NOT NULL DEFAULT '0',
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 DROP TABLE IF EXISTS `notorm`;
@@ -38,7 +38,7 @@ CREATE TABLE `notorm` (
   `id` varchar(255) NOT NULL,
   `data` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 
--- 2018-09-21 15:14:32
+-- 2023-04-03 11:51:18

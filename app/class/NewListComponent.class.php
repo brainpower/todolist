@@ -16,12 +16,14 @@ class NewListComponent extends AbstractComponent {
 
 	public function prepare(){
 		global $DB;
+		$now = new DateTimeImmutable();
+		$nowStr = $now->format('Y-m-d H:i:s');
 		if(isset($_POST["name"])){
 			if ($this->action === "new") {
 				$new_list = array(
 					"name" => $_POST["name"],
-					"created_at" => time(),
-					"updated_at" => time()
+					"created_at" => $nowStr,
+					"updated_at" => $nowStr
 				);
 				if (isset($_POST["description"])) {
 					$new_list["description"] = $_POST["description"];
@@ -35,8 +37,8 @@ class NewListComponent extends AbstractComponent {
 								"name" => $line,
 								"list_id" => $this->new_list_added,
 								"state" => 0,
-								"created_at" => time(),
-								"updated_at" => time()
+								"created_at" => $nowStr,
+								"updated_at" => $nowStr
 							));
 						}
 					}
@@ -45,7 +47,7 @@ class NewListComponent extends AbstractComponent {
 				$listID = $this->list["id"];
 				$this->list->update(array(
 					"name" => $_POST["name"],
-					"updated_at" => time()
+					"updated_at" => $nowStr
 				));
 				if (isset($_POST["rawlist"]) && !empty($_POST["rawlist"])) {
 					$DB->entry('list_id = ?', $listID)->delete();
@@ -55,8 +57,8 @@ class NewListComponent extends AbstractComponent {
 								"name" => $line,
 								"list_id" => $listID,
 								"state" => 0,
-								"created_at" => time(),
-								"updated_at" => time()
+								"created_at" => $nowStr,
+								"updated_at" => $nowStr
 							));
 						}
 					}
@@ -75,7 +77,7 @@ class NewListComponent extends AbstractComponent {
 			$title = $this->list ? $this->list["name"] : '';
 			$descr = $this->list ? $this->list["description"] : '';
 			$entries = array();
-			
+
 			if ($this->list) {
 				foreach ($DB->entry('list_id = ?', $this->list["id"]) as $item) {
 					$entries[] = "{$item["name"]}";
@@ -84,7 +86,7 @@ class NewListComponent extends AbstractComponent {
 			} else {
 				$entries = '';
 			}
-			
+
 			print <<<"EOF"
 <div class="form">
 	<form action="?action={$action}" method="post">
